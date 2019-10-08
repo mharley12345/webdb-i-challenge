@@ -9,32 +9,39 @@ const knex = require('../data/dbConfig')
 //get /accounts
 router.get('/', (req,res) =>{
     // get the list of accounts from the db using knex
- knex
-     .select()
-     .from('accounts')
+ knex('accounts')
+    //  .select()
+    //  .from('accounts')
     
   .then(accounts =>{
-    res.status(200).json({data:accounts})
+    res.status(200).json(accounts)
   })
     //send the list of accounts from the db
    .catch(error=>{
        res.status(500).json({message:error})
    })
 })
+
+
+
 //get acounts/id
 router.get('/:id', (req,res)=>{
     // ID
-    const ID = req.param.id
-knex
-  .select()
-  .from('accounts')
-  .where({id: ID})
-
+ 
+knex('accounts')
+//   .select()
+//   .from('accounts')
+  .where({id:req.params.id})
+.first()
   .then(account =>{
-      res.status(200).json({data:account})
+      if (account)
+      {res.status(200).json(account)}
+      else{
+          res.status(404).json({message: 'Account not found'})
+      }
   })
   .catch(error =>{
-      res.status(500).json({message:error})
+      res.status(500).json({message:"This shit is broke"})
   })
 })
 //post accounts/add
