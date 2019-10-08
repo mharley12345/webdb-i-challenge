@@ -10,7 +10,7 @@ const knex = require('../data/dbConfig')
 router.get('/', (req,res) =>{
     // get the list of accounts from the db using knex
  knex('accounts')
-    //  .select()
+    //   .select()
     //  .from('accounts')
     
   .then(accounts =>{
@@ -29,8 +29,8 @@ router.get('/:id', (req,res)=>{
     // ID
  
 knex('accounts')
-//   .select()
-//   .from('accounts')
+  .select()
+  .from('accounts')
   .where({id:req.params.id})
 .first()
   .then(account =>{
